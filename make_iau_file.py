@@ -88,14 +88,14 @@ def set_unlimited(sRutaMercator):
         return None
 
     dst = nc.Dataset(sRutaMercator,'r')
-    sRutaMercatorTmp = sRutaMercator + '.tmp'
+    sRutaMercatorTmp = sRutaMercator + 'tmp.nc'
     if not dst.dimensions['time_counter'].isunlimited():
         # Convertir la dimension time_counter sRutaMercator a unlimited
-        sNO = 'time_counter = ' + str(len(dst.dimensions['time_counter'])) + ' ;' 
-        sNew = 'time_counter = UNLIMITED ; // (' + str(len(dst.dimensions['time_counter'])) + ' currently)'
-        sCmdSetU = 'ncdump ' + sRutaMercator +  ' | sed -e "s#^.' + sNO + '# ' + sNew + '#" | ncgen -o ' + sRutaMercatorTmp
+        # Usando ncks de nco 
+        sCmdSetU = 'ncks -h --mk_rec_dmn time_counter ' + sRutaMercator + ' -o ' + sRutaMercatorTmp
         log.info('Comando: ' + sCmdSetU)
         os.system(sCmdSetU)
+
         if os.path.exists(sRutaMercatorTmp):
             log.info('Se genero el archivo ' + sRutaMercatorTmp)
             os.system('mv ' + sRutaMercatorTmp + ' ' + sRutaMercator)            

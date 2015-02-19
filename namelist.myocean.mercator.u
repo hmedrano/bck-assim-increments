@@ -35,8 +35,8 @@ vmin      = -30000
 cf_z_in  = 'INPUTFILE'
 cv_z_in  = 'depth'
 cf_z_out = 'MASKFILE'
-cv_z_out = 'nav_lev'
-cv_z_out_name = 'nav_lev'
+cv_z_out = 'deptht'
+cv_z_out_name = 'deptht'
 /
 !!
 !!
